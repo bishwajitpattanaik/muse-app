@@ -395,15 +395,6 @@ Base URL: `http://localhost:3001/api`
 
 ---
 
-## 📝 Notes
-
-- JWT is stored in an **HttpOnly cookie** (set by the backend), so `credentials: "include"` is used in every fetch call from the frontend.
-- The `proxy` in `package.json` forwards `/api/*` calls to the Express server during development.
-- Make sure the backend has CORS configured to allow `http://localhost:5173` with `credentials: true`.
-- Roles are encoded in the JWT at login — middleware enforces `authArtist` and `authUser` guards on protected routes.
-
----
-
 ## 👤 Author
 
 Built with ❤️ by **Bishwajit Pattanaik**
