@@ -8,7 +8,11 @@ const musicRoutes = require('./routes/music.routes')         //46
 const app = express()                            //1
 
 app.use(cors({
-    origin: 'http://localhost:3001',
+    origin: [
+        'http://localhost:5173',        // vite default
+        'http://localhost:3001',        // your local frontend
+        'https://your-app.vercel.app'  // add after Vercel deploys
+    ],
     credentials: true
 }))
 
