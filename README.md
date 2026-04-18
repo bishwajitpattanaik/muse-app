@@ -4,6 +4,8 @@
 
 A clean, fast full-stack web app for streaming music. No noise — just your content, front and center.
 
+🌐 **Live Demo:** [muse-app-bishwajitpattanaik.vercel.app](https://muse-app-bishwajitpattanaik.vercel.app)
+
 ---
 
 ## 💻 Tech Stack
@@ -54,50 +56,96 @@ A clean, fast full-stack web app for streaming music. No noise — just your con
 
 ---
 
+## 🚀 Deployment Architecture
+
+```
+                        User Browser
+                             │
+                             ▼
+              ┌──────────────────────────┐
+              │      Vercel (Frontend)    │
+              │   React app (static CDN)  │
+              │  muse-app-bishwajit...    │
+              │      .vercel.app          │
+              └────────────┬─────────────┘
+                           │  HTTPS API calls
+                           │  credentials: include (JWT cookie)
+                           ▼
+              ┌──────────────────────────┐
+              │     Render (Backend)      │
+              │   Node.js + Express API   │
+              │   /api/auth  /api/music   │
+              └────────────┬─────────────┘
+                           │
+              ┌────────────┴─────────────┐
+              │                          │
+              ▼                          ▼
+  ┌─────────────────────┐   ┌────────────────────────┐
+  │   MongoDB Atlas      │   │        ImageKit         │
+  │  (Cloud Database)    │   │  (Audio File Storage)   │
+  └─────────────────────┘   └────────────────────────┘
+```
+
+| Layer | Platform | URL |
+|---|---|---|
+| Frontend | Vercel | [muse-app-bishwajitpattanaik.vercel.app](https://muse-app-bishwajitpattanaik.vercel.app) |
+| Backend | Render | Auto-assigned Render URL |
+| Database | MongoDB Atlas | Cloud hosted |
+| File Storage | ImageKit | CDN delivered |
+
+**How it works:**
+- The React frontend is deployed on **Vercel** as a static site, served globally via CDN.
+- The Express backend is deployed on **Render** as a web service, running Node.js continuously.
+- On every API call, the frontend sends requests to the Render backend with `credentials: "include"` so the JWT cookie travels cross-domain.
+- CORS on the backend is configured to allow all `vercel.app` origins with credentials.
+- Audio files are uploaded to **ImageKit** from the backend and served directly to the client via CDN URL.
+- User and music data is stored in **MongoDB Atlas**.
+
+---
+
 ## 📁 Project Structure
 
 ```
-Muse/
-├── Backend/
-│   └── src/
-│       ├── db/
-│       │   └── db.js                  # MongoDB connection using Mongoose
-│       ├── models/
-│       │   ├── user.model.js          # User schema (username, email, role)
-│       │   ├── music.model.js         # Music schema (uri, title, artist)
-│       │   └── album.model.js         # Album schema (title, musics[], artist)
-│       ├── controllers/
-│       │   ├── auth.controller.js     # Register, login, logout logic
-│       │   └── music.controller.js    # Upload music, create album, fetch all
-│       ├── routes/
-│       │   ├── auth.routes.js         # Auth routes & middleware
-│       │   └── music.routes.js        # Music routes & middleware
-│       ├── middlewares/
-│       │   └── auth.middleware.js     # authArtist, authUser guards
-│       ├── services/
-│       │   └── storage.service.js     # ImageKit upload service
-│       ├── app.js                     # Express routes & middleware setup
-│       └── .gitignore
-├── package.json
-└── server.js                          # Entry point
+MUSE/
 │
-├── Frontend/
-│   ├── public/                        # Static assets
-│   └── src/
-│       ├── context/
-│       │   └── AuthContext.js         # Auth context & useAuth hook
-│       ├── pages/
-│       │   ├── AuthPage.jsx           # Login / Register page
-│       │   ├── AuthPage.css
-│       │   ├── Dashboard.jsx          # Feed, albums, upload pages
-│       │   └── Dashboard.css
-│       ├── services/
-│       │   └── api.js                 # All API calls
-│       ├── App.jsx                    # Root with auth state
-│       ├── index.js                   # Entry point
-│       └── index.css                  # Global styles
-│   ├── index.html
-│   └── package.json
+├── Backend/
+│   ├── src/
+│   │   ├── controllers/
+│   │   │   ├── auth.controller.js     # Register, login, logout logic
+│   │   │   └── music.controller.js    # Upload music, create album, fetch all
+│   │   ├── db/
+│   │   │   └── db.js                  # MongoDB connection using Mongoose
+│   │   ├── middlewares/
+│   │   │   └── auth.middleware.js     # authArtist, authUser guards
+│   │   ├── models/
+│   │   │   ├── album.model.js         # Album schema (title, musics[], artist)
+│   │   │   ├── music.model.js         # Music schema (uri, title, artist)
+│   │   │   └── user.model.js          # User schema (username, email, role)
+│   │   ├── routes/
+│   │   │   ├── auth.routes.js         # Auth routes
+│   │   │   └── music.routes.js        # Music routes
+│   │   ├── services/
+│   │   │   └── storage.service.js     # ImageKit upload service
+│   │   └── app.js                     # Express app setup (CORS, routes)
+│   ├── package.json
+│   └── server.js                      # Entry point
+│
+└── Frontend/
+    ├── public/
+    │   └── index.html                 # HTML entry point
+    ├── src/
+    │   ├── context/
+    │   │   └── AuthContext.js         # Auth context & useAuth hook
+    │   ├── pages/
+    │   │   ├── AuthPage.css
+    │   │   ├── AuthPage.jsx           # Login / Register page
+    │   │   ├── Dashboard.css
+    │   │   └── Dashboard.jsx          # Feed, albums, upload pages
+    │   ├── services/
+    │   │   └── api.js                 # All API calls
+    │   ├── App.jsx                    # Root with auth state & routing
+    │   └── index.js                   # React entry point
+    └── package.json
 ```
 
 ---
@@ -155,7 +203,17 @@ cd ../Frontend
 npm install
 ```
 
-**6. Start the Frontend**
+**6. Configure environment variables**
+
+Create a `.env` file inside the `Frontend` folder:
+
+```env
+REACT_APP_API_URL=http://localhost:3001
+```
+
+> For production, set `REACT_APP_API_URL` to your Render backend URL in Vercel environment settings.
+
+**7. Start the Frontend**
 
 ```bash
 npm run dev
@@ -163,7 +221,7 @@ npm run dev
 
 > Frontend runs on `http://localhost:5173`
 
-**7. Open in browser**
+**8. Open in browser**
 
 Visit `http://localhost:5173/` to start listening!
 
