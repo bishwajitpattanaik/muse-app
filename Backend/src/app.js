@@ -11,7 +11,8 @@ app.use(cors({
     origin: [
         'http://localhost:5173',        // vite default
         'http://localhost:3000',        // local frontend
-        'https://muse-app-chi.vercel.app'  // production frontend
+        // 'https://muse-app-chi.vercel.app'  // production frontend --> old domain
+        'https://muse-app-bishwajitpattanaik.vercel.app' // new domain
     ],
     credentials: true
 }))

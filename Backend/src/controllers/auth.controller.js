@@ -89,14 +89,7 @@ async function registerUser(req, res){               //14
     }, process.env.JWT_SECRET)
 
 
-    //set token in cookie                                                  //23
-    // res.cookie("token", token)  --> works only on localhost
-    res.cookie("token", token, {
-        httpOnly: true,
-        secure: true,          // required for HTTPS
-        sameSite: "none",      // required for cross-domain cookies
-        maxAge: 7 * 24 * 60 * 60 * 1000  // 7 days
-    })
+   
 
     res.status(201).json({                                                //24
         
