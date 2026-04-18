@@ -7,13 +7,28 @@ const musicRoutes = require('./routes/music.routes')         //46
 
 const app = express()                            //1
 
+// app.use(cors({
+//     origin: [
+//         'http://localhost:5173',        // vite default
+//         'http://localhost:3000',        // local frontend
+//         // 'https://muse-app-chi.vercel.app'  // production frontend --> old domain
+//         'https://muse-app-bishwajitpattanaik.vercel.app' // new domain
+//     ],
+//     credentials: true
+// }))
+
+//will work for every vercel domain
 app.use(cors({
-    origin: [
-        'http://localhost:5173',        // vite default
-        'http://localhost:3000',        // local frontend
-        // 'https://muse-app-chi.vercel.app'  // production frontend --> old domain
-        'https://muse-app-bishwajitpattanaik.vercel.app' // new domain
-    ],
+    origin: function(origin, callback) {
+        // allow localhost and any vercel.app domain
+        if (!origin || 
+            origin.includes('localhost') || 
+            origin.includes('vercel.app')) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
     credentials: true
 }))
 
