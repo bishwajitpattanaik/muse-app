@@ -93,7 +93,7 @@ A clean, fast full-stack web app for streaming music. No noise — just your con
 | Database | MongoDB Atlas | Cloud hosted |
 | File Storage | ImageKit | CDN delivered |
 
-**How it works:**
+**Architecture:**
 - The React frontend is deployed on **Vercel** as a static site, served globally via CDN.
 - The Express backend is deployed on **Render** as a web service, running Node.js continuously.
 - On every API call, the frontend sends requests to the Render backend with `credentials: "include"` so the JWT cookie travels cross-domain.
