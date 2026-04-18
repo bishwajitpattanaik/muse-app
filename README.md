@@ -1,8 +1,8 @@
 # Muse
 
-> One track. One album. Infinite vibes.
+> Artists pour their soul into music. I poured mine into the code that hosts it.
 
-A clean, fast full-stack web app for streaming music. No noise — just your content, front and center.
+A production-deployed, role-based music streaming platform built with React, Express, MongoDB Atlas, and ImageKit — artists upload and manage tracks, listeners browse and stream, all secured with JWT authentication.
 
 🌐 **Live Demo:** [muse-app-bishwajitpattanaik.vercel.app](https://muse-app-bishwajitpattanaik.vercel.app)
 
