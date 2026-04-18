@@ -101,7 +101,7 @@ export default function AuthPage() {
           {error && <p className="auth-error">{error}</p>}
 
           <button className="submit-btn" onClick={submit} disabled={loading}>
-            {loading ? <span className="spinner" /> : mode === "login" ? "Enter Muse" : "Create Account"}
+            {loading ? <span className="spinner" /> : mode === "login" ? "Continue" : "Create Account"}
           </button>
         </div>
       </div>
