@@ -1,27 +1,25 @@
-const express = require('express')                //1
-const cookieParser = require('cookie-parser')     //1
+const express = require('express')
+const cookieParser = require('cookie-parser')
 const cors = require('cors')
 
-const authRoutes = require('./routes/auth.routes')   //11
-const musicRoutes = require('./routes/music.routes')         //46
+const authRoutes = require('./routes/auth.routes')
+const musicRoutes = require('./routes/music.routes')
 
-const app = express()                            //1
+const app = express()
 
 app.use(cors({
-    origin: [
-        'http://localhost:5173',        // vite default
-        'http://localhost:3001',        // your local frontend
-        'https://your-app.vercel.app'  // add after Vercel deploys
-    ],
+    origin: true,        // ← allows all origins temporarily until you get Vercel URL
     credentials: true
 }))
 
-app.use(express.json())                          //1
-app.use(cookieParser())                          //1
+app.use(express.json())
+app.use(cookieParser())
 
+app.get('/healthz', (req, res) => {
+    res.status(200).json({ status: 'ok' })
+})
 
-//prefix for api
-app.use('/api/auth', authRoutes)          //11
-app.use('/api/music', musicRoutes)                   //47
+app.use('/api/auth', authRoutes)
+app.use('/api/music', musicRoutes)
 
-module.exports = app                            //1
+module.exports = app
