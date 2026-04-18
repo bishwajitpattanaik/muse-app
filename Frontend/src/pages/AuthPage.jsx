@@ -78,7 +78,7 @@ export default function AuthPage() {
 
           {mode === "register" && (
             <div className="field">
-              <label>I am a...</label>
+              <label>Role</label>
               <div className="role-toggle">
                 <button
                   className={`role-btn ${form.role === "user" ? "active" : ""}`}
