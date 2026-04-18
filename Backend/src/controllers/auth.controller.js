@@ -90,7 +90,13 @@ async function registerUser(req, res){               //14
 
 
     //set token in cookie                                                  //23
-    res.cookie("token", token)
+    // res.cookie("token", token)  --> works only on localhost
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,          // required for HTTPS
+        sameSite: "none",      // required for cross-domain cookies
+        maxAge: 7 * 24 * 60 * 60 * 1000  // 7 days
+    })
 
     res.status(201).json({                                                //24
         
@@ -162,8 +168,14 @@ async function loginUser(req, res){                                             
     }, process.env.JWT_SECRET) 
 
 
-    //set token in cookie
-    res.cookie("token", token)                                                   //39
+    //set token in cookie                                                  //23
+    // res.cookie("token", token)  --> works only on localhost
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,          // required for HTTPS
+        sameSite: "none",      // required for cross-domain cookies
+        maxAge: 7 * 24 * 60 * 60 * 1000  // 7 days
+    })                                                  //39
 
 
     res.status(200).json({                                             //40
@@ -187,7 +199,13 @@ async function logoutUser(req, res){              //143
     //since login sets a JWT token in cookie, 
     //clearing it means user is no longer authenticated
     //on next request → no token → 401 Unauthorized
-    res.clearCookie("token")               //144
+    // res.clearCookie("token")               //144
+
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    })
 
     //send success response confirming logout
     res.status(200).json({                      //145
