@@ -43,4 +43,29 @@ app.get('/healthz', (req, res) => {             //health check for Render
 app.use('/api/auth', authRoutes)          //11
 app.use('/api/music', musicRoutes)                   //47
 
+
+//health check endpoint
+app.get("/", (req, res) => {
+  res.json({
+    status: "✅ Live",
+    app: "Muse API",
+    version: "1.0.0",
+    message: "Artists pour their soul into music. I poured mine into the code that hosts it.",
+    endpoints: {
+      auth: "/api/auth",
+      music: "/api/music"
+    },
+    docs: {
+      register: "POST /api/auth/register",
+      login: "POST /api/auth/login",
+      logout: "POST /api/auth/logout",
+      getAllTracks: "GET /api/music/",
+      getAllAlbums: "GET /api/music/albums",
+      uploadTrack: "POST /api/music/upload  [Artist only]",
+      createAlbum: "POST /api/music/album   [Artist only]"
+    }
+  });
+});
+
+
 module.exports = app                            //1
