@@ -1,8 +1,8 @@
 # Muse
 
-> One track. One album. Infinite vibes.
+> Artists pour their soul into music. I poured mine into the code that hosts it.
 
-A clean, fast full-stack web app for streaming music. No noise — just your content, front and center.
+A production-deployed, role-based music streaming platform built with React, Express, MongoDB Atlas, and ImageKit — artists upload and manage tracks, listeners browse and stream, all secured with JWT authentication.
 
 🌐 **Live Demo:** [muse-app-bishwajitpattanaik.vercel.app](https://muse-app-bishwajitpattanaik.vercel.app)
 
@@ -89,7 +89,7 @@ A clean, fast full-stack web app for streaming music. No noise — just your con
 | Layer | Platform | URL |
 |---|---|---|
 | Frontend | Vercel | [muse-app-bishwajitpattanaik.vercel.app](https://muse-app-bishwajitpattanaik.vercel.app) |
-| Backend | Render | Auto-assigned Render URL |
+| Backend | Render | [muse-app-e38t.onrender.com](https://muse-app-e38t.onrender.com) |
 | Database | MongoDB Atlas | Cloud hosted |
 | File Storage | ImageKit | CDN delivered |
 
@@ -392,15 +392,6 @@ Base URL: `http://localhost:3001/api`
 | title | String | Album name |
 | musics | ObjectId[] | Array of Music references |
 | artist | ObjectId | Reference to User collection |
-
----
-
-## 📝 Notes
-
-- JWT is stored in an **HttpOnly cookie** (set by the backend), so `credentials: "include"` is used in every fetch call from the frontend.
-- The `proxy` in `package.json` forwards `/api/*` calls to the Express server during development.
-- Make sure the backend has CORS configured to allow `http://localhost:5173` with `credentials: true`.
-- Roles are encoded in the JWT at login — middleware enforces `authArtist` and `authUser` guards on protected routes.
 
 ---
 
