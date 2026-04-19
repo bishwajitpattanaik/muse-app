@@ -89,7 +89,7 @@ A production-deployed, role-based music streaming platform built with React, Exp
 | Layer | Platform | URL |
 |---|---|---|
 | Frontend | Vercel | [muse-app-bishwajitpattanaik.vercel.app](https://muse-app-bishwajitpattanaik.vercel.app) |
-| Backend | Render | Auto-assigned Render URL |
+| Backend | Render | [muse-app-e38t.onrender.com](https://muse-app-e38t.onrender.com) |
 | Database | MongoDB Atlas | Cloud hosted |
 | File Storage | ImageKit | CDN delivered |
 
