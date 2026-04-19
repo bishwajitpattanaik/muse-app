@@ -399,6 +399,8 @@ Base URL: `http://localhost:3001/api`
 
 Built with ❤️ by **Bishwajit Pattanaik**
 
+- 🔗 GitHub: [github.com/bishwajitpattanaik](https://github.com/bishwajitpattanaik)
+- 💼 LinkedIn: [linkedin.com/bishwajitpattanaik](https://www.linkedin.com/in/bishwajit-pattanaik-717818320/)
 ---
 
 ## 🛠️ Support
