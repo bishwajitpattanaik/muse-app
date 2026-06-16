@@ -29,6 +29,8 @@ export default function AuthPage() {
 
   return (
     <div className="auth-root">
+
+      {/* Vinyl — this spins */}
       <div className="auth-bg">
         <div className="vinyl-ring r1" />
         <div className="vinyl-ring r2" />
@@ -36,6 +38,48 @@ export default function AuthPage() {
         <div className="vinyl-center" />
       </div>
 
+      {/* Tonearm + block — outside auth-bg so they don't spin with it */}
+      <svg
+        className="tonearm-svg"
+        viewBox="0 0 600 600"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* Tonearm at 45° */}
+        <line x1="300" y1="300" x2="162" y2="162"
+          stroke="#c8a060" strokeWidth="6" strokeLinecap="round"/>
+        <line x1="300" y1="300" x2="162" y2="162"
+          stroke="rgba(255,220,140,0.2)" strokeWidth="2" strokeLinecap="round"/>
+
+        {/* Headshell */}
+        <g transform="translate(162,162) rotate(-45)">
+          <rect x="-5" y="-12" width="10" height="24" rx="2"
+            fill="#c8a060" stroke="#f5a623" strokeWidth="1"/>
+          <rect x="-8" y="-24" width="16" height="14" rx="2"
+            fill="#1a1a1a" stroke="#888" strokeWidth="0.8"/>
+          <line x1="0" y1="-24" x2="0" y2="-34"
+            stroke="#ccc" strokeWidth="1.5" strokeLinecap="round"/>
+          <circle cx="0" cy="-36" r="3" fill="#f5a623"/>
+        </g>
+
+        {/* Pivot */}
+        <circle cx="300" cy="300" r="10" fill="#c8a060" stroke="#f5a623" strokeWidth="1.5"/>
+        <circle cx="300" cy="300" r="4.5" fill="#f5a623"/>
+
+        {/* Orbiting block */}
+        <g>
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from="0 300 300"
+            to="360 300 300"
+            dur="4s"
+            repeatCount="indefinite"
+          />
+          <rect x="288" y="94" width="24" height="12" rx="3"
+            fill="#f5a623" stroke="#c87010" strokeWidth="1.5"/>
+        </g>
+      </svg>
+      
       <div className="auth-panel">
         <div className="auth-logo">
           <span className="logo-icon">♬</span>

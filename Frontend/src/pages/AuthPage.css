@@ -55,6 +55,19 @@ body {
   border: 1px solid #222;
 }
 
+/* Tonearm sits over the vinyl but doesn't spin */
+.tonearm-svg {
+  position: fixed;        /* changed from absolute */
+  top: 50%;
+  right: -120px;
+  transform: translateY(-50%);
+  width: 600px;
+  height: 600px;
+  z-index: 10;
+  pointer-events: none;
+  overflow: visible;
+}
+
 .r1 { width: 600px; height: 600px; background: radial-gradient(circle, #1c1c1c 0%, #0d0d0d 100%); }
 .r2 { width: 380px; height: 380px; border-color: #2a2a2a; border-width: 2px; }
 .r3 { width: 200px; height: 200px; border-color: #333; border-width: 3px; }
